@@ -3,7 +3,7 @@
       <v-app-bar-nav-icon>
       <v-img width="50"  aspect-ratio="4/3" src="../../assets/LOGO_MC3.png" cover/>
       </v-app-bar-nav-icon>
-      <v-toolbar-title>
+      <v-toolbar-title class="d-none d-sm-flex">
       Metacalor
     </v-toolbar-title>
     <v-spacer></v-spacer>
