@@ -26,6 +26,38 @@ const routes = [
 
         component: () => import('@/views/Login.vue'),
       },
+      {
+        path: 'progress',
+        name: 'progress',
+
+        component: () => import('@/views/Progress.vue'),
+      },
+      {
+        path: 'ranking',
+        name: 'ranking',
+
+        component: () => import('@/views/Ranking.vue'),
+      },
+      {
+        path: 'planes',
+        name: 'planes',
+
+        component: () => import('@/views/Planes_alimenticios.vue'),
+      },
+      {
+        path: 'ejercicios',
+        name: 'ejercicios',
+
+        component: () => import('@/views/Ejercicios.vue'),
+      },
+      {
+        path: 'alimentos',
+        name: 'alimentos',
+
+        component: () => import('@/views/Alimentos.vue'),
+      },
+
+
     ],
   },
 
