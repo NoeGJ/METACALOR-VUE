@@ -1,6 +1,6 @@
 <template>
-  <v-app-bar :elevation="10" flat >
-      <v-app-bar-nav-icon>
+  <v-app-bar :elevation="10" flat color="#ff5733"  >
+      <v-app-bar-nav-icon >
       <v-img width="50"  aspect-ratio="4/3" src="../../assets/LOGO_MC3.png" cover/>
       </v-app-bar-nav-icon>
       <v-toolbar-title class="d-none d-sm-flex">
@@ -20,7 +20,6 @@
 
 a { text-decoration: none; color: inherit; }
 </style>
-
 
 
 <script lang="ts" setup>
