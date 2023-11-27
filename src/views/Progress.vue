@@ -1,6 +1,6 @@
 <template>
     <h1 class="text-center">Progreso General</h1>
-      <v-container  fluid>
+      <v-container>
       <v-row   no-gutters>
         <v-col v-for="n in nutrientes" :key="n" sm="4" cols="4" justify="center" align="center" class="mb-5">
           
@@ -25,122 +25,48 @@
       </v-row>
     </v-container>
     <v-divider></v-divider>
-    <!-- <v-container >
+     <v-container >
           <v-row justify="center">
             <v-btn icon="mdi-less-than" class="" variant="plain" v-if="this.hoy.toLocaleDateString() !== this.primerDia.toLocaleDateString()" @click="changeDate(false)" > </v-btn>
-            <p   class="text-center mt-3 font-weight-medium">{{ hoy.toLocaleDateString() }}</p>
+            <p   class="text-center mt-3 font-weight-medium">{{ formattedDate }}</p>
             <v-btn icon="mdi-greater-than" class="" variant="plain" v-if="this.hoy.toLocaleDateString() !== this.ultimoDia.toLocaleDateString()" @click="changeDate(true)">  </v-btn>
           </v-row>
 
-    </v-container> -->
+    </v-container>
     <v-container>
-    <v-timeline align="start">
-      <v-timeline-item dot-color="white" size="large">
-        <template v-slot:icon>
-          <v-progress-circular model-value="75" :size="508" :width="20">
-             75% 
-          </v-progress-circular>
-        </template>
-        <template v-slot:opposite>
-          {{ primerDia.toLocaleDateString() }}
-        </template>
-        <v-row>
-          <v-col>
-        <div>
-          <div class="text-h8 text-center">Calorias</div>
-          <p>            
-            2010 kcal/245 cal
-          </p>
-        </div>
-      </v-col>
-        <v-divider vertical class="d-none d-sm-flex"></v-divider>
-        <v-col>
-        <div>
-          <div class="text-h8">Proteinas</div>
-          <p>
-            125 g
-          </p>
-        </div>
-      </v-col>
-      <v-divider vertical class="d-none d-sm-flex"></v-divider>
-      <v-col>
-      <div>
-        <div class="text-h8">Carbohidratos</div>
-        <p>
-          325 g
-        </p>
-      </div>
-    </v-col>
-    <v-divider vertical class="d-none d-sm-flex"></v-divider>
-    <v-col>
-    <div>
-      <div class="text-h8">Grasas</div>
-      <p>
-        98 g
-      </p>
-    </div>
-  </v-col>
-  
+      <v-row>
+        <v-col cols="12" md="4" class="pa-lg-3 my-5 ">
+
+          <Pie :data="pieChartData" ></Pie>
+        
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-list lines="one" class="ml-lg-15">
+            <v-divider ></v-divider>
+            <v-list-item v-for="item, i in listItems" :key="i" :title="item.title">
+              <template v-slot:append>
+              {{ item.result }}
+              {{ i == 3 ? 'Pts': '' }}
+            </template>
+          </v-list-item>
+          <v-divider ></v-divider>
+          </v-list>
+        </v-col>
       </v-row>
-      </v-timeline-item>
-  
-      <v-timeline-item>
-        <template v-slot:opposite>
-          Opposite content
-        </template>
-        <div>
-          <div class="text-h6">Content title</div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
-      </v-timeline-item>
-  
-      <v-timeline-item>
-        <template v-slot:opposite>
-          Opposite content
-        </template>
-        <div>
-          <div class="text-h6">Content title</div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
-      </v-timeline-item>
-      <v-timeline-item>
-        <template v-slot:opposite>
-          Opposite content
-        </template>
-        <div>
-          <div class="text-h6">Content title</div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
-      </v-timeline-item>
-    </v-timeline>
-  </v-container>
+    </v-container>
+
 </template>
 
-<style scoped>
-  .chartBar-container{
-    height: 100%;
-  }
-</style>
-
-
-
-
 <script>
-import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import { Bar, Pie } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, ArcElement, CategoryScale, LinearScale } from 'chart.js'
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, ArcElement)
 
 
 export default {
   name: 'BarChart',
-  components: { Bar },
+  components: { Bar, Pie },
   
   data() {
     return {
@@ -149,6 +75,15 @@ export default {
       primerDia: new Date( new Date().setDate( new Date().getDate() - new Date().getDay() )),
       ultimoDia: new Date( new Date().setDate( new Date().getDate() - new Date().getDay() + 6 )),
       value: 90,
+      listItems: [{title: 'Calorias meta', result: 2590},
+                  {title: 'Calorias consumidas', result: 2200},     
+                  {title: 'Calorias quemadas', result: 350},
+                  {title: 'Puntos obtenidos', result: 1500},
+                  {title: 'Porcentaje logrado', result: '90%'},
+                  {title: 'Proteinas', result: 105},
+                  {title: 'Carbohidratos', result: 230},
+                  {title: 'Grasas', result: 90}],
+      //Datos del grafico de barras
       chartData: {
         labels: [ 'Dom', 'Lun', 'Ma','Mi','Ju','Vi','Sab'],
         datasets: [
@@ -159,16 +94,27 @@ export default {
           }
         ]
       },
+      pieChartData: {
+        labels: ['Proteinas', 'Carbohidratos', 'Grasas'],
+        datasets: [
+          {
+            backgroundColor: ['#ff5733','#CACACF', '#4450FF'],
+            data: [105, 230, 90]
+          }
+        ]
+      },
     }
+    
   },
     computed:{
+      // Da un formato a la fecha de hoy
       formattedDate() {
         return `${this.hoy.getDate()} / ${this.hoy.getMonth() + 1} / ${this.hoy.getFullYear()}`;
       }
     },
  methods:{
+        //Almacena la fecha hoy en fechaActual para despues sumar o restar dependiendo de la direccion del boton (<, >)
         changeDate: function(tipo){
-      
           const fechaActual = new Date(this.hoy);      
           tipo ? fechaActual.setDate(fechaActual.getDate() + 1) : fechaActual.setDate(fechaActual.getDate() - 1);
     
@@ -177,7 +123,8 @@ export default {
         //console.log(this.hoy)
         //console.log(this.ultimoDia)
         //console.log(this.hoy.toLocaleDateString() != this.ultimoDia.toLocaleDateString())
-    }
+    },
+    
   },
 
 }

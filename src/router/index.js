@@ -52,6 +52,16 @@ const routes = [
         
                 component: () => import('@/views/Alimentos.vue'),
               },
+              {
+                path: '/planes/:id',
+                name: 'edit',
+                component: () => import('@/views/Edit.vue'),
+              },
+              {
+                path: '/planes/add',
+                name: 'add',
+                component: () => import('@/views/Add.vue'),
+              },
         ],
     },
 ];
