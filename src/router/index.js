@@ -55,7 +55,7 @@ const routes = [
               {
                 path: '/planes/:id',
                 name: 'edit',
-                component: () => import('@/views/Edit.vue'),
+                component: () => import('@/views/Add.vue'),
               },
               {
                 path: '/planes/add',

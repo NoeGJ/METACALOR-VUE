@@ -3,11 +3,20 @@
     <v-divider ></v-divider>
     <v-list >
         <v-list-item v-for="alimento, i in alimentos" :key="i">
+            <v-row>
             <v-col>
                 {{ alimento.nombre }}
             </v-col>
+            <v-col>
+                {{ alimento.cantidad  }} {{ alimento.unidad }}/s
+            </v-col>
+            <v-col>
+                <v-btn icon="mdi-delete" variant="text" density="comfortable" rounded="0" @click="eliminarElemento( i )"></v-btn>
+            </v-col>
+        </v-row>
+        
         </v-list-item>
-        <VDialogPlanes @alimento-seleccionado="agregar" />
+        <VDialogPlanes @alimento-seleccionado="agregarElemento" />
     </v-list>
 </template>
 
@@ -16,13 +25,21 @@
     import VDialogPlanes from './VDialogPlanes.vue'
     export default {
         props: ['comida'],
-        data: () => ({
+        data (){
+            return{
             alimentos: [],
-        }),
-        methods: {
-            agregar( elemento ){
-                this.alimentos.push( elemento )
             }
+        },
+        methods: {
+            agregarElemento( elemento ){
+                //console.log('elemento', elemento)
+                this.alimentos.push( elemento )
+            },
+            eliminarElemento( id ){
+                //console.log('eliminar', id)
+                this.alimentos.splice(id, 1)
+            }
+
         },
         components: {
             VDialogPlanes,

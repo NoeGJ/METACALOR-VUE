@@ -13,55 +13,61 @@
             <span class="text-h5">Agregar alimento</span>
           </v-card-title>
           <v-card-text>
-            <v-container>              
+            <v-form ref="mainForm">
+            <v-container >              
                   <v-autocomplete
-                    v-model="busqueda"
+                    v-model="itemBusqueda"
                     :items="resultadosBusqueda"
-                     
-                    @change="seleccionarAlimento"
-
+                    ref="itemBusqueda"
+                   
+                    no-data-text="Sin resultados"
                     label="Buscar alimento*"
                     density="compact"
                     variant="solo"
-                    hide-details
+                    item-title="nombre"
+                    item-text="nombre"
+                    item-value="id"
+                    :rules="[rules.required]"
+                          
+                    menu-icon=""
                     single-line
-                    append-inner-icon="mdi-magnify"
+                    prepend-inner-icon="mdi-magnify"
                     class="mb-15"
                     required  
                   ></v-autocomplete>
   
-                  <v-spacer></v-spacer>
+                 
               
                   <v-text-field
+                    v-model="cantidad"
                     label="Cantidad*"
                     type="number"
                     variant="solo"
                     persistent-hint
+                    :suffix="this.itemBusqueda != null ? this.resultadosBusqueda.find(item => item.id === this.itemBusqueda).unidad : ''"
+                    :rules="[rules.required]"
                     required
                   ></v-text-field>
-              
-
-            
-                
-  
+                  
             </v-container>
+          </v-form>
             <small>*Se requieren llenar todos los campos</small>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-              color="blue-darken-1"
+              color="red-darken-1"
               variant="text"
               @click="dialog = false"
             >
-              Close
+              Cancelar
             </v-btn>
             <v-btn
               color="blue-darken-1"
               variant="text"
-              @click="dialog = false"
+              @click="enviarDatos"
             >
-              Save
+              Guardar
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -69,23 +75,53 @@
    
   </template>
 
-<script>
+<script lang="ts">
   export default {
 
     data: () => ({
+      
       dialog: false,
-      busqueda: null,
+      itemBusqueda: null,
+      unidad: '',
+      cantidad: null,
       resultadosBusqueda: [
-        {id: 1, nombre: 'Acelga cocida'},
-        {id: 2, nombre: 'Acelga cruda'},
-        {id: 3, nombre: 'Alcachofa mediana cocida'},
-        {id: 4, nombre: 'Alfalfa'}
+        {id: 1, nombre: 'Acelga cocida', unidad: 'taza'},
+        {id: 2, nombre: 'Acelga cruda', unidad: 'taza'},
+        {id: 3, nombre: 'Alcachofa mediana cocida', unidad: 'pieza'},
+        {id: 4, nombre: 'Alfalfa', unidad: 'taza'}
       ],
+      rules: {
+          required: value => !!value || 'Campo requerido' 
+      },
     }),
     methods: {
-      seleccionarAlimento(){
-        this.$emit('alimento-seleccionado', this.busqueda)
+      enviarDatos: async function (){
+        
+        const { valid } = await this.$refs.mainForm.validate()
+
+        if (valid) {
+          
+          const item = this.resultadosBusqueda.find(item => item.id === this.itemBusqueda)
+          this.form.id = item?.id
+           this.form.nombre = item?.nombre
+           this.form.unidad = item?.unidad
+  
+          this.$emit('alimento-seleccionado', this.form)
+          this.dialog = false
+
+        }
+        
       }
-    }
+    },
+    computed: {
+      form() {
+        return {
+          id: this.itemBusqueda.id,
+          nombre: this.itemBusqueda.nombre,
+          unidad: this.itemBusqueda.unidad,
+          cantidad: this.cantidad,
+        }
+      }
+    },
   }
 </script>
