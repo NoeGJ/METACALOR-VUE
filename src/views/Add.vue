@@ -4,10 +4,11 @@
     <v-text-field label="Nombre del plan*" variant="solo-filled" :rules="[rules.required]"></v-text-field>
 
     <v-textarea  label="Descripción*" variant="solo-filled" :rules="[rules.required]"></v-textarea>
-
-    <ListaAlimentos comida="Desayuno" />
-    <ListaAlimentos comida="Comida" />
-    <ListaAlimentos comida="Cena" />
+    <div>
+    <ListaAlimentos v-for="comida in comidas" :comida="comida" @lista-registrada="listar" @eliminar-registro="eliminar" />
+    </div>
+    <!-- <ListaAlimentos comida="Comida" @lista-registrada="listar" @eliminar-registro="eliminar" />
+    <ListaAlimentos comida="Cena" @lista-registrada="listar" @eliminar-registro="eliminar" /> -->
     <v-row class="mb-5">
     <v-col>
             <router-link to='/planes' >
@@ -42,13 +43,25 @@
         data:() => ({
             nombre: null,
             descripcion: null,
+            comidas: [ 'Desayuno', 'Comida', 'Cena' ],
+            lista: { Desayuno: [], Comida: [], Cena: [] },
             rules: {
                 required: value => !!value || 'Campo requerido'
             },
         }),
         methods: {
-            guardar: async function(){
+            guardar: async function( ){
                 const { valid } = await this.$refs.form.validate()
+                 //if (valid) 
+                console.log('Lista', this.lista)
+            },
+            listar: function( elemento ){
+                //console.log( elemento )
+                this.lista[elemento[1]].push(elemento[0])
+            },
+            eliminar: function( elemento ){
+                //console.log( elemento )
+            this.lista[elemento[1]].splice(elemento[0], 1)
             }
         },
         components: {

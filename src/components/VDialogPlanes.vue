@@ -107,10 +107,14 @@
            this.form.unidad = item?.unidad
   
           this.$emit('alimento-seleccionado', this.form)
-          this.dialog = false
-
-        }
-        
+          this.reset()
+        }        
+      },
+      reset: function(){
+        this.unidad = ''
+        this.cantidad = null
+        this.itemBusqueda= null
+        this.dialog = false
       }
     },
     computed: {

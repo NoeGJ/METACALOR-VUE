@@ -24,20 +24,24 @@
 <script>
     import VDialogPlanes from './VDialogPlanes.vue'
     export default {
+        inheritAttrs: false,
         props: ['comida'],
         data (){
             return{
             alimentos: [],
             }
         },
+
         methods: {
             agregarElemento( elemento ){
                 //console.log('elemento', elemento)
                 this.alimentos.push( elemento )
+                this.$emit('lista-registrada', [this.alimentos, this.comida])
             },
             eliminarElemento( id ){
                 //console.log('eliminar', id)
                 this.alimentos.splice(id, 1)
+                this.$emit('eliminar-registro', [id, this.comida])
             }
 
         },
