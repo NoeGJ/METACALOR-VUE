@@ -11,12 +11,12 @@
     <div class="exercise-container">
       <div v-for="exercise in filteredExercises" :key="exercise.id" class="exercise-square">
         <h2 style="background-color: green;">{{ exercise.nombre }}</h2>
-        <div class="exercise-details">
+        <v-container class="exercise-details">
           <p><strong>Nombre:</strong> {{ exercise.nombre }}</p>
           <p><strong>Repeticiones:</strong> {{ exercise.repeticiones }}</p>
           <p><strong>Duración:</strong> {{ exercise.duracion }}</p>
           <p><strong>Beneficios:</strong> {{ exercise.beneficios }}</p>
-        </div>
+        </v-container>
       </div>
 
       <!-- Mensaje si no hay ejercicios después de aplicar el filtro -->
@@ -294,7 +294,7 @@ beforeUnmount() {
 }
 .exercise-square {
   width: 300px;
-  height: 300px;
+  height: 500px;
   border: 3px solid #000000;
   background-color: #8BC34A; 
   margin: 10px;

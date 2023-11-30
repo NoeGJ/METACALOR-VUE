@@ -91,7 +91,8 @@
                 <!-- Resultado del IMC (no modificable) -->
                 <v-row>
                     <v-col cols="12">
-                        <v-text-field v-model="imc" label="IMC" outlined dense solo readonly disabled></v-text-field>
+                     IMC   
+                     <v-text-field v-model="imc"   outlined dense solo readonly disabled> {{this.peso / (this.estatura**2)}} </v-text-field>
                     </v-col>
                 </v-row>
 
@@ -134,6 +135,7 @@
 </template>
 
 <script lang ="ts">
+import { thisExpression } from '@babel/types';
 import Footer1 from '../components/Footer1.vue';
 import headerlog from '../components/headerlog.vue';
 
@@ -150,14 +152,14 @@ export default {
     data() {
         return {
             isMobileView: false,
-            nombre: 'Brayan',
-            nombreUsuario: 'brayan_bh',
-            correo: 'brayan.bautista0901@alumnos.udg.mx',
-            telefono: '3312345678',
+            nombre: 'MIGUEL VLADIMIR FIERROS MORA',
+            nombreUsuario: 'MIKE',
+            correo: 'vladi.fierros@gmail.com',
+            telefono: '3312409360',
             nivelesActividad: ['SEDENTARIA', 'LIVIANA', 'MODERADA', 'INTENSA'],
             nivelActividad: 'MODERADA',
             peso: '65',
-            estatura: '170',
+            estatura: '1.67',
             imc: '',
             sexo: '', // 'masculino' o 'femenino'
             edicionActivada: false,

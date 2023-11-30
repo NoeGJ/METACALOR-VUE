@@ -107,12 +107,6 @@
             </button>
           </router-link>
 
-          <router-link to="/calendario" style="text-decoration: none;">
-            <button class="boton2">
-              <i class="fa-solid fa-calendar-days" style="font-size: 30px; cursor: pointer;"></i>
-              <span :class="{ 'oculto': !isSpanBarraLateral2 }">CALENDARIO</span>
-            </button>
-          </router-link>
 
           
           <router-link to="/alimentos" style="text-decoration: none;">
@@ -168,12 +162,6 @@
           </router-link>
         </li>
         <li class="botones">
-          <router-link to="/calendario" class ="btn botonesv">
-            <i class="fa-solid fa-calendar-days"></i>
-            <span class = "general" :class="{ 'oculto': !isSpanBarraLateral }">CALENDARIO</span>
-          </router-link>
-        </li>
-        <li class="botones">
           <router-link to="alimentos" class ="btn botonesv">
             <i class="fa-solid fa-utensils"></i>
             <span class = "general" :class="{ 'oculto': !isSpanBarraLateral }">ALIMENTOS</span>
@@ -195,12 +183,6 @@
           <router-link to="/planesali" class ="btn botonesv">
             <i class="fa-solid fa-bowl-food"></i>
             <span class = "general" :class="{ 'oculto': !isSpanBarraLateral }">PLANES ALIMENTICIOS</span>
-          </router-link>
-        </li>
-        <li class="botones">
-          <router-link to="/ranking" class ="btn botonesv">
-            <i class="fa-solid fa-ranking-star"></i>
-            <span class = "general" :class="{ 'oculto': !isSpanBarraLateral }">RANKING</span>
           </router-link>
         </li>
       </ul>

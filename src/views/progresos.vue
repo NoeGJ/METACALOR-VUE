@@ -178,7 +178,7 @@ export default {
 {
     margin-left: 80px;
     margin-top: 70px;
-    height: 220vh;
+    height: 260vh;
     background-color: rgb(255, 255, 255);
 }
 .bodyresponsive
