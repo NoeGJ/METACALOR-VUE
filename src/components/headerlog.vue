@@ -192,7 +192,7 @@
           </router-link>
         </li>
         <li class="botones">
-          <router-link to="/planes" class ="btn botonesv">
+          <router-link to="/planesali" class ="btn botonesv">
             <i class="fa-solid fa-bowl-food"></i>
             <span class = "general" :class="{ 'oculto': !isSpanBarraLateral }">PLANES ALIMENTICIOS</span>
           </router-link>
@@ -659,9 +659,13 @@ export default {
         this.usuarioAutenticado = !!usuario;
 
 
+
         if(!this.usuarioAutenticado)
         {
-          console.log("NO HAY USUARIO")
+          console.log("NO HAY USUARIO2")
+        }
+        else{
+          console.log("INGRESO UN WEY2")
         }
       });
     },

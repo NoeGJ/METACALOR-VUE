@@ -9,7 +9,11 @@
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'vuetify/styles'; // Importa los estilos base
+
 import { initializeApp } from "firebase/app";
+import 'firebase/firestore';
+import { addDoc, getFirestore } from "firebase/firestore";
 
 
 const firebaseConfig = {
@@ -22,8 +26,10 @@ const firebaseConfig = {
     measurementId: "G-5N0EPWJY1V"
   };
   
-  // Initialize Firebase
-initializeApp(firebaseConfig);
+// Initialize Firebase
+ initializeApp(firebaseConfig);
+ getFirestore();
+
 
 
 

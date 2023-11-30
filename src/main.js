@@ -4,9 +4,13 @@ import 'vuetify/styles'; // Importa los estilos base
 import '@mdi/font/css/materialdesignicons.css'; // Importa los iconos de Material Design
 
 import firebase from "firebase/app";
+import 'firebase/firestore';
+import { getFirestore } from "firebase/firestore";
 
 
-const firebaseConfig = {
+
+const firebaseConfig = 
+{
     apiKey: "AIzaSyDJKfsw5qK3C1slWF5pZ7deX1deRAYfUSI",
     authDomain: "metacalor-login-register.firebaseapp.com",
     projectId: "metacalor-login-register",
@@ -18,7 +22,9 @@ const firebaseConfig = {
 
 
 firebase.initializeApp(firebaseConfig);
+firebase.getFirestore();
 
+// Obtiene el objeto de autenticación
 
 import App from './App.vue';
 

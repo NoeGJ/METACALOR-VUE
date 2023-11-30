@@ -100,6 +100,11 @@ import { ref } from 'vue';
 import Footer1 from '../components/Footer1.vue';
 import header1 from '../components/header.vue';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'; // Cambiado de signInWithEmailAndPassword a createUserWithEmailAndPassword
+import {onMounted} from 'vue'
+import "firebase/auth"
+import {signOut, onAuthStateChanged } from 'firebase/auth';
+import { doc, setDoc } from "firebase/firestore"; 
+
 
 
 export default {
@@ -112,6 +117,7 @@ export default {
       step: 1,
       imageData:'',
       show1 : false,
+      usuarioAutenticado: false,
       show2 : false,
       items:  [{ name: 'Sedentaria', text: 'Actividades en posición sentada o de pie: pintar, manejar, trabajo de laboratorio, computación, coser, plantar, cocinar, jugar cartas, tocar un instrumento musical.'}, 
               {name: 'Liviana', text: 'Caminar, trabajos eléctricos, trabajo en restaurantes, limpieza en casa, golf, cuidado de niños, tenis de casa.'},
@@ -150,6 +156,28 @@ export default {
       },
 
     }),
+    setup() {
+    const usuarioAutenticado = ref(false);
+
+    onMounted(() => {
+      const auth = getAuth();
+
+      onAuthStateChanged(auth, (usuario) => {
+        usuarioAutenticado.value = !!usuario;
+
+        if (!usuarioAutenticado.value) {
+          console.log("NO HAY USUARIO");
+        } else {
+          console.log("INGRESO UN WEY");
+        }
+      });
+    });
+
+    // Devuelve las propiedades y métodos que necesitas en el componente
+    return {
+      usuarioAutenticado,
+    };
+  },
 
   methods:
   {
@@ -215,6 +243,27 @@ export default {
             reader.readAsDataURL(file);
           }
         },
+
+
+        async obtenerDatosUsuario(uid) {
+    try {
+      const db = getFirestore();
+      const usuariosRef = collection(db, 'usuarios');
+      const querySnapshot = await getDocs(query(usuariosRef, where('uid', '==', uid)));
+
+      if (querySnapshot.size > 0) {
+        // El usuario fue encontrado, puedes acceder a sus datos
+        querySnapshot.forEach((doc) => {
+          const datosUsuario = doc.data();
+          console.log('Datos del usuario:', datosUsuario);
+        });
+      } else {
+        console.log('Usuario no encontrado');
+      }
+    } catch (error) {
+      console.error('Error al obtener datos del usuario:', error.message);
+    }
+  },
 
   }
 

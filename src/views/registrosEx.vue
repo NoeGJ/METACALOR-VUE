@@ -17,8 +17,6 @@
               </div>
               </v-card-text>
 
-              <v-btn class="acc1 px-10 my-5 text-center bg-yellow-darken-2  mt-5" type ="submit" @click.prevent="logout">SALIR</v-btn>
-
           </v-card>
       </v-form>
   </v-img>
@@ -42,8 +40,8 @@ export default {
 
   data: () => ({
       step: 1,
-      show1 : false,
-      show2 : false,
+      show : false,
+
       items:  [{ name: 'Sedentaria', text: 'Actividades en posición sentada o de pie: pintar, manejar, trabajo de laboratorio, computación, coser, plantar, cocinar, jugar cartas, tocar un instrumento musical.'}, 
               {name: 'Liviana', text: 'Caminar, trabajos eléctricos, trabajo en restaurantes, limpieza en casa, golf, cuidado de niños, tenis de casa.'},
               { name: 'Moderada', text: 'Caminar vigorosamente, cortar el pasto, bailar, ciclismo en superficie plana, esquiar, tenis, llevar una carga.'},
@@ -76,17 +74,23 @@ export default {
 
   methods: {
     authUser() {
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, this.email, this.pass)
-        .then(() => {
-          alert('Éxito!');
-          //this.$router.push('/homelog');
+  const auth = getAuth();
+  
+  signInWithEmailAndPassword(auth, this.email, this.pass)
+    .then((userCredential) => {
+      // Después de iniciar sesión, obtén la información del usuario
+      const user = userCredential.user;
 
-        })
-        .catch((error) => {
-          alert('ERROR!' + error.message);
-        });
-    },
+      // Muestra los datos del usuario en la consola
+      console.log("Usuario autenticado:", user);
+
+      alert('Éxito!');
+      this.$router.push('/homelog');
+    })
+    .catch((error) => {
+      alert('ERROR!' + error.message);
+    });
+},
 
     logout() {
       const auth = getAuth();
